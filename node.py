@@ -9,8 +9,9 @@ class Node:
 
 
 class Layer:
-    nodes = []
+    
     def __init__(self, numberofNodes):
+        self.nodes = []
         for i in range(numberofNodes):
             self.nodes.append(Node(i))
 
@@ -19,25 +20,31 @@ class Connection:
         self.weight = random.random()
         self.bias = random.random()
 
-class Link:
-    connections = []
-    def __init__(self,layers:list):
+class Network:
+    def __init__(self,layers:list,connections:list):
         self.layers = layers
-        for i in range(1,len(layers)):
-            layer_connections = []
-            layer1 = layers[i-1]
-            layer2 = layers[i]
+        self.connections = connections
 
-            for j in range(len(layer2.nodes)):
-                weightedInput = 0
-                to_node = layer2.nodes[j]
-                for k in range(len(layer1.nodes)):
-                    from_node = layer1.nodes[k]
-                    layer_connections.append(Connection())
-                    link = layer_connections[-1]
-                    weightedInput += from_node.inValue*link.weight + link.bias
-                to_node.inValue = weightedInput
-            self.connections.append(layer_connections)
+
+    
+def Link(layers:list):
+    connections=[]
+    for i in range(1,len(layers)):
+        layer_connections = []
+        layer1 = layers[i-1]
+        layer2 = layers[i]
+
+        for j in range(len(layer2.nodes)):
+            weightedInput = 0
+            to_node = layer2.nodes[j]
+            for k in range(len(layer1.nodes)):
+                from_node = layer1.nodes[k]
+                layer_connections.append(Connection())
+                link = layer_connections[-1]
+                weightedInput += from_node.inValue*link.weight + link.bias
+            to_node.inValue = weightedInput
+        connections.append(layer_connections)
+        return Network(layers,connections)
 
 def LoadInput(numberofInputs:int, inputs:list, inputLayer:Layer):
     if numberofInputs!=len(inputs) or len(inputs)!=len(inputLayer.nodes): #The second test condition...
