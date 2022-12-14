@@ -21,7 +21,7 @@ class Connection:
 
 class Network:
     connections = []
-    def __init__(self,layers):
+    def __init__(self,layers:list):
         self.layers = layers
         for i in range(1,len(layers)):
             layer_connections = []
@@ -29,18 +29,15 @@ class Network:
             layer2 = layers[i]
 
             for j in range(len(layer2)):
-                weightedInput:float
+                weightedInput = 0
+                to_node = layer2[j]
                 for k in range(len(layer1)):
                     from_node = layer1[k]
-                    to_node = layer2[j]
                     layer_connections.append(Connection())
                     link = layer_connections[-1]
-                    to_node.inValue = from_node*link.weight + link.bias
-                    
-
-
-                
-
+                    weightedInput += from_node*link.weight + link.bias
+                to_node.inValue = weightedInput
+            self.connections.append(layer_connections)
 
 def Input(numberofInputs:int, inputs:list, inputLayer:Layer):
     if numberofInputs!=len(inputs) or len(inputs)!=len(inputLayer.nodes):
@@ -48,7 +45,10 @@ def Input(numberofInputs:int, inputs:list, inputLayer:Layer):
     for i in range(numberofInputs):
         inputLayer.nodes[i].inValue = inputs[i]
 
+inputLayer = Layer(2)
+outputLayer = Layer(3)
 
+model = Network([inputLayer,outputLayer])
 
 
 
