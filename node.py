@@ -47,20 +47,21 @@ def Link(layers:list):
         return Network(layers,connections)
 
 def LoadInput(numberofInputs:int, inputs:list, inputLayer:Layer):
-    if numberofInputs!=len(inputs) or len(inputs)!=len(inputLayer.nodes): #The second test condition...
+    if numberofInputs!=len(inputs) or len(inputs)!=len(inputLayer.nodes): 
         raise SizeMismatchError
     for i in range(numberofInputs):
         inputLayer.nodes[i].inValue = inputs[i]
 
-inputLayer = Layer(2) # I Think python thinks these 2 layers are a single layer? IDK aren't they supposed to inherit and be copy? and not overwrite?
+inputLayer = Layer(2) 
+hiddenLayer = Layer(5)
 outputLayer = Layer(3)
 inputs = [1,2]
 LoadInput(2,inputs,inputLayer)
 
-model = Link([inputLayer,outputLayer])
+model = Link([inputLayer,hiddenLayer,outputLayer])
 
-for node in outputLayer.nodes:
-    print(node.inValue) # This thing prints out all 5 nodes???
+for node in model.layers[-1].nodes:
+    print(node.inValue)
 
 
 
