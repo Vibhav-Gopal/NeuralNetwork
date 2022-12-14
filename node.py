@@ -19,7 +19,7 @@ class Connection:
         self.weight = random.random()
         self.bias = random.random()
 
-class Network:
+class Link:
     connections = []
     def __init__(self,layers:list):
         self.layers = layers
@@ -28,28 +28,32 @@ class Network:
             layer1 = layers[i-1]
             layer2 = layers[i]
 
-            for j in range(len(layer2)):
+            for j in range(len(layer2.nodes)):
                 weightedInput = 0
-                to_node = layer2[j]
-                for k in range(len(layer1)):
-                    from_node = layer1[k]
+                to_node = layer2.nodes[j]
+                for k in range(len(layer1.nodes)):
+                    from_node = layer1.nodes[k]
                     layer_connections.append(Connection())
                     link = layer_connections[-1]
-                    weightedInput += from_node*link.weight + link.bias
+                    weightedInput += from_node.inValue*link.weight + link.bias
                 to_node.inValue = weightedInput
             self.connections.append(layer_connections)
 
-def Input(numberofInputs:int, inputs:list, inputLayer:Layer):
-    if numberofInputs!=len(inputs) or len(inputs)!=len(inputLayer.nodes):
+def LoadInput(numberofInputs:int, inputs:list, inputLayer:Layer):
+    if numberofInputs!=len(inputs) :
         raise SizeMismatchError
     for i in range(numberofInputs):
         inputLayer.nodes[i].inValue = inputs[i]
 
 inputLayer = Layer(2)
 outputLayer = Layer(3)
+inputs = [1,2]
+LoadInput(2,inputs,inputLayer)
 
-model = Network([inputLayer,outputLayer])
+model = Link([inputLayer,outputLayer])
 
+for node in outputLayer.nodes:
+    print(node.inValue)
 
 
 
