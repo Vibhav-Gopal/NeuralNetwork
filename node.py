@@ -20,14 +20,25 @@ class Connection:
         self.bias = random.random()
 
 class Network:
+    connections = []
     def __init__(self,layers):
         self.layers = layers
         for i in range(1,len(layers)):
+            layer_connections = []
             layer1 = layers[i-1]
             layer2 = layers[i]
 
             for j in range(len(layer2)):
-                node = layer2[j]
+                weightedInput:float
+                for k in range(len(layer1)):
+                    from_node = layer1[k]
+                    to_node = layer2[j]
+                    layer_connections.append(Connection())
+                    link = layer_connections[-1]
+                    to_node.inValue = from_node*link.weight + link.bias
+                    
+
+
                 
 
 
