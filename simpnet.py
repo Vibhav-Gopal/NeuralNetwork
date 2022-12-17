@@ -18,8 +18,8 @@ class Layer:
 
 class Connection:
     def __init__(self):
-        self.weight = random.random()/10
-        self.bias = (random.random())/10
+        self.weight = random.random()/5
+        self.bias = (random.random())/5
 
 class Network:
     def __init__(self,layers:list,connections:list):
@@ -63,6 +63,7 @@ def LoadInput(inputs:list, inputLayer:Layer,activation:str='linear'):
         raise SizeMismatchError
     for i in range(len(inputs)):
         inputLayer.nodes[i].inValue = Activation(inputs[i],activation)
+    return inputLayer
 
 def Predict(model:Network,inputs:list):
     
@@ -88,7 +89,7 @@ def Predict(model:Network,inputs:list):
 # hiddenLayer = Layer(5)
 # outputLayer = Layer(3)
 # inputs = [1,2]
-# LoadInput(inputs,inputLayer,'linear')
+# inputLayer = LoadInput(inputs,inputLayer,'linear')
 # layers = [inputLayer,hiddenLayer,outputLayer]
 # activations = ['linear','sigmoid']
 # model = Link(layers,activations)
