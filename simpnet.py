@@ -84,32 +84,28 @@ def Predict(model:Network,inputs:list):
         
     return values
 
-inputLayer = Layer(2) 
-hiddenLayer = Layer(5)
-outputLayer = Layer(3)
-inputs = [1,2]
-LoadInput(inputs,inputLayer,'linear')
-layers = [inputLayer,hiddenLayer,outputLayer]
-activations = ['linear','sigmoid']
-model = Link(layers,activations)
+# inputLayer = Layer(2) 
+# hiddenLayer = Layer(5)
+# outputLayer = Layer(3)
+# inputs = [1,2]
+# LoadInput(inputs,inputLayer,'linear')
+# layers = [inputLayer,hiddenLayer,outputLayer]
+# activations = ['linear','sigmoid']
+# model = Link(layers,activations)
 
-for node in model.layers[0].nodes:
-    print(node.inValue)
-
-print('and')
-
-# for node in model.layers[1].nodes:
+# for node in model.layers[0].nodes:
 #     print(node.inValue)
 
 # print('and')
 
-for node in model.layers[2].nodes:
-    print(node.inValue)
 
-print('and')
-print(Predict(model,[1,2]))
-print(Predict(model,[3,4]))
-print(Predict(model,[1,2]))
+# for node in model.layers[2].nodes:
+#     print(node.inValue)
+
+# print('and')
+# print(Predict(model,[1,2]))
+# print(Predict(model,[3,4]))
+# print(Predict(model,[1,2]))
 
 
 
